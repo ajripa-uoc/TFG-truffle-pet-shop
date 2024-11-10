@@ -16,11 +16,11 @@ jobs:
         image: trufflesuite/ganache-cli
         ports:
           - "8545:8545"
-        options: >
-          --health-cmd="curl -s http://127.0.0.1:8545 -X POST -H 'Content-Type: application/json' -d '{\"jsonrpc\": \"2.0\", \"method\": \"eth_accounts\"}' || exit 1"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
+        options: >-
+          --health-cmd "curl -s http://127.0.0.1:8545 -X POST -H 'Content-Type: application/json' -d '{\"jsonrpc\": \"2.0\", \"method\": \"eth_accounts\"}' || exit 1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
