@@ -4,7 +4,7 @@ services:
       context: ./pet-shop-tutorial
       dockerfile: Dockerfile
       args:
-        GANACHE_HOST: host.docker.internal
+        GANACHE_HOST: host.docker.internal # Required for build stage
         GANACHE_PORT: 8545
     ports:
       - "3000:3000"
