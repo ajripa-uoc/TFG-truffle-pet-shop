@@ -1,0 +1,19 @@
+services:
+  web:
+    build:
+      context: ./pet-shop-tutorial
+      dockerfile: Dockerfile
+      args:
+        GANACHE_HOST: host.docker.internal
+        GANACHE_PORT: 8545
+    ports:
+      - "3000:3000"
+    environment:
+      - GANACHE_URL=http://localhost:8545
+    restart: on-failure
+    depends_on:
+      - ganache-cli
+  ganache-cli:
+    image: trufflesuite/ganache-cli
+    ports:
+      - "8545:8545"
