@@ -35,5 +35,6 @@ RUN truffle test --network live
 # Expose the port the app runs on
 EXPOSE 3000
 
-# Define the command to run the app
-CMD ["npm", "run", "lite"]
+# Modify config file to set the GANACHE_URL based on th environment variables
+RUN chmod +x ./entrypoint.sh
+CMD ["./entrypoint.sh"]

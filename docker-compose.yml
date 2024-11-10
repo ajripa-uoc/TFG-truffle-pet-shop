@@ -1,7 +1,7 @@
 services:
   web:
     build:
-      context: ./pet-shop-tutorial
+      context: ./
       dockerfile: Dockerfile
       args:
         GANACHE_HOST: host.docker.internal # Required for build stage
@@ -9,6 +9,7 @@ services:
     ports:
       - "3000:3000"
     environment:
+      # This url will be set in config.js
       - GANACHE_URL=http://localhost:8545
     restart: on-failure
     depends_on:

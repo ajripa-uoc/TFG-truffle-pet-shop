@@ -41,7 +41,7 @@ App = {
     }
     // If no injected web3 instance is detected, fall back to Ganache
     else {
-      const providerUrl = process.env.GANACHE_URL || 'http://localhost:8545';
+      const providerUrl = window.GANACHE_URL || 'http://localhost:8545';
       App.web3Provider = new Web3.providers.HttpProvider(providerUrl);
     }
     web3 = new Web3(App.web3Provider);
