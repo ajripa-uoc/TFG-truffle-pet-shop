@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Pet Shop Deployment
 
 on:
   #push:
@@ -6,12 +6,16 @@ on:
   #pull_request:
   #  branches: [ "main" ]
   workflow_dispatch:
-  
+
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
+
+    services:
+      ganache-cli:
+        image: trufflesuite/ganache-cli
+        ports:
+          - "8545:8545"
 
     steps:
     - uses: actions/checkout@v4
