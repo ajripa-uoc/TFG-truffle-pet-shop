@@ -1,12 +1,6 @@
 
-FROM node
-
-# Set the GANACHE_URL build argument
-ARG GANACHE_HOST
-ENV GANACHE_HOST=${GANACHE_HOST}
-
-ARG GANACHE_PORT
-ENV GANACHE_PORT=${GANACHE_PORT}
+# Stage 1: Build the application
+FROM node as build
 
 # Set the working directory
 WORKDIR /usr/src/app
@@ -23,18 +17,18 @@ RUN npm install -g truffle
 # Copy the rest of the application code
 COPY . .
 
-# Compile the Truffle project
-RUN truffle compile
-
-# Run migrations (adjust network as needed)
-RUN truffle migrate --network live
-
-# Run tests
-RUN truffle test --network live
-
-# Expose the port the app runs on
-EXPOSE 3000
-
-# Modify config file to set the GANACHE_URL based on th environment variables
+# Run application
 RUN chmod +x ./entrypoint.sh
 CMD ["./entrypoint.sh"]
+
+# # Stage 2: Run the application
+# FROM nginx:latest
+
+# COPY --from=build /usr/src/app/src /usr/share/nginx/html
+# COPY --from=build /usr/src/app/entrypoint.sh /usr/share/nginx/html
+
+# # Modify config file to set the GANACHE_URL based on th environment variables
+# RUN chmod +x ./entrypoint.sh
+
+# # Expose the port
+# EXPOSE 3000

@@ -3,13 +3,7 @@ module.exports = {
   // for more about customizing your Truffle configuration!
   networks: {
     development: {
-      host: "127.0.0.1",
-      port: 7545,
-      network_id: "*" // Match any network id
-    },
-    live: {
-      host: process.env.GANACHE_HOST,
-      port: process.env.GANACHE_PORT,
+      url: process.env.GANACHE_URL || "http://ganache:8545",
       network_id: "*" // Match any network id
     },
     develop: {

@@ -53,7 +53,7 @@
   "sourceMap": "66:352:1:-;;;113:10;90:33;;;;;;;;;;;;;;;;;;;;66:352;8:9:-1;5:2;;;30:1;27;20:12;5:2;66:352:1;;;;;;;",
   "deployedSourceMap": "66:352:1:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;66:352:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;127:36;;;:::i;:::-;;;;;;;;;;;;;;;;;;;90:33;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;313:103;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;313:103:1;;;;;;;;;;;;;;;;;:::i;:::-;;127:36;;;;:::o;90:33::-;;;;;;;;;;;;;:::o;313:103::-;225:5;;;;;;;;;;;211:19;;:10;:19;;;196:101;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;402:9;375:24;:36;;;;313:103;:::o",
   "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.4.22 <0.8.0;\n\ncontract Migrations {\n  address public owner = msg.sender;\n  uint public last_completed_migration;\n\n  modifier restricted() {\n    require(\n      msg.sender == owner,\n      \"This function is restricted to the contract's owner\"\n    );\n    _;\n  }\n\n  function setCompleted(uint completed) public restricted {\n    last_completed_migration = completed;\n  }\n}\n",
-  "sourcePath": "/Users/ajripa/Library/CloudStorage/OneDrive-UniversitatObertadeCatalunya/TFG/Repos/DPP/pet-shop-tutorial/contracts/Migrations.sol",
+  "sourcePath": "/Users/ajripa/Library/CloudStorage/OneDrive-UniversitatObertadeCatalunya/TFG/Repos/TFG-truffle-pet-shop/contracts/Migrations.sol",
   "ast": {
     "absolutePath": "project:/contracts/Migrations.sol",
     "exportedSymbols": {
@@ -923,10 +923,16 @@
       "links": {},
       "address": "0xdf89a44768b9dD60c868cA085a6d1aad3F04E011",
       "transactionHash": "0xe4961d7946c0f6559d045d436e8979e1f4ea3e97a4d9d725a0b27d476e1f2aa3"
+    },
+    "1731241540979": {
+      "events": {},
+      "links": {},
+      "address": "0x7Ceaf5BD13a044B0919694ca0a50491BC693f751",
+      "transactionHash": "0xe9cf219b4ce8a0157670a1d8ec219ecce769b1d0b27782b30816bcc16bf66b9e"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2024-11-09T08:39:01.541Z",
+  "updatedAt": "2024-11-10T16:47:33.941Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

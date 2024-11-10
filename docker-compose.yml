@@ -3,18 +3,11 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-      args:
-        GANACHE_HOST: host.docker.internal # Required for build stage
-        GANACHE_PORT: 8545
     ports:
-      - "3000:3000"
-    environment:
-      # This url will be set in config.js
-      - GANACHE_URL=http://localhost:8545
-    restart: on-failure
+      - 3000:3000
     depends_on:
-      - ganache-cli
-  ganache-cli:
-    image: trufflesuite/ganache-cli
+      - ganache
+  ganache:
+    image: trufflesuite/ganache
     ports:
-      - "8545:8545"
+      - 8545:8545
