@@ -15,12 +15,12 @@ jobs:
       ganache-cli:
         image: trufflesuite/ganache-cli
         ports:
-          - "8545:8545"
+          - 8545/tcp
         options: >-
           --health-cmd "nc -z localhost 8545"
           --health-interval 10s
           --health-timeout 5s
-          --health-retries 5
+          --health-retries 10
 
     steps:
     - uses: actions/checkout@v4
