@@ -11,13 +11,49 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
-      ganache-cli:
-        image: trufflesuite/ganache-cli
-        ports:
-          - 8545:8545
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag tfg-pet-shop:$(date +%s)
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+
+      - name: Prepare ECR repository name based on the Github repository
+        shell: bash
+        run: |
+          set -eux
+          # lowercase the name
+          repo="${GITHUB_REPOSITORY,,}"
+
+          # replace / with _
+          echo "ECR_REPO_NAME=${repo//\//_}" >> $GITHUB_ENV
+
+      - name: Create ECR repository if it doesn't exist
+        shell: bash
+        run: |
+          set -eux
+          if ! aws ecr describe-repositories --repository-names "$ECR_REPO_NAME" > /dev/null 2>&1; then
+            aws ecr create-repository --repository-name "$ECR_REPO_NAME"
+            echo "ECR repository $ECR_REPO_NAME created."
+          else
+            echo "ECR repository $ECR_REPO_NAME already exists."
+          fi
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, tag, and push Docker image to Amazon ECR
+        id: build-push
+        shell: bash
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ env.ECR_REPO_NAME }}
+          IMAGE_TAG: $(date +%s)
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
