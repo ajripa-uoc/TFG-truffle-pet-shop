@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "tfg-truffle-pet-shop.fullname" . }}
+  labels:
+    {{- include "tfg-truffle-pet-shop.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "tfg-truffle-pet-shop.selectorLabels" . | nindent 4 }}

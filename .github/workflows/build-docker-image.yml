@@ -49,7 +49,7 @@ jobs:
 
       - name: Create tag based on the current timestamp
         id: tag-timestamp
-        run: echo "::set-output name=timestamp::$(date +'%Y-%m-%d-%H-%M')"
+        run: echo "IMAGE_TAG=$(date +'%Y-%m-%d-%H-%M')"
 
       - name: Build, tag, and push Docker image to Amazon ECR
         id: build-push

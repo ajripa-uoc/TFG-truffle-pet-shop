@@ -1,0 +1,28 @@
+# Values file for the tfg-truffle-pet-shop chart
+image:
+  repository: 986740191892.dkr.ecr.eu-west-1.amazonaws.com/ajripa-uoc_tfg-truffle-pet-shop
+  tag: 2024-11-11-18-19
+
+service:
+  port: 3000
+
+ingress:
+  enabled: true
+  ingressClassName: alb
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/group.name: shared-public
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/backend-protocol: HTTP
+    alb.ingress.kubernetes.io/healthcheck-port: '3000'
+    external-dns.alpha.kubernetes.io/hostname: pet-shop.ajripa.click
+  hosts:
+    - host: yourphoto.ie.edu
+      paths:
+        - path: /*
+          pathType: ImplementationSpecific
+
+env:
+  GANACHE_URL: https://ganache.ajripa.click
