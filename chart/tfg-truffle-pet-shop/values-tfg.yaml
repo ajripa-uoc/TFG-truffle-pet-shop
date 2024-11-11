@@ -19,7 +19,7 @@ ingress:
     alb.ingress.kubernetes.io/healthcheck-port: '3000'
     external-dns.alpha.kubernetes.io/hostname: pet-shop.ajripa.click
   hosts:
-    - host: yourphoto.ie.edu
+    - host: pet-shop.ajripa.click
       paths:
         - path: /*
           pathType: ImplementationSpecific
